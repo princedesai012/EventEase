@@ -1,0 +1,51 @@
+@page "/register"
+@using EventEase.Data // Make sure to use your project's namespace here
+
+<h3>Event Registration</h3>
+
+<EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="registrationModel.Name" />
+        <ValidationMessage For="@(() => registrationModel.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="registrationModel.Email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="event" class="form-label">Select Event</label>
+        <InputSelect id="event" class="form-select" @bind-Value="registrationModel.EventId">
+            <option value="">-- Please select an event --</option>
+            <option value="101">Tech Conference 2025</option>
+            <option value="102">Marketing Summit</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => registrationModel.EventId)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</EditForm>
+
+@if (isSubmitted)
+{
+    <div class="alert alert-success mt-3" role="alert">
+        Registration successful for @registrationModel.Name!
+    </div>
+}
+
+@code {
+    private Registration registrationModel = new Registration();
+    private bool isSubmitted = false;
+
+    private void HandleValidSubmit()
+    {
+        // In a real app, you would save this to a database.
+        Console.WriteLine($"Registration received for: {registrationModel.Name}, Email: {registrationModel.Email}");
+        isSubmitted = true;
+    }
+}

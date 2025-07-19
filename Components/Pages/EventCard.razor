@@ -1,0 +1,37 @@
+@page "/eventcard"
+@using EventEase.Data
+
+<h3>Event Card</h3>
+
+<div class="card" style="width: 25rem;">
+    <div class="card-body">
+        <h5 class="card-title">@CurrentEvent.Title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@CurrentEvent.Date.ToShortDateString()</h6>
+        <p class="card-text">@CurrentEvent.Description</p>
+        <p class="card-text"><small class="text-muted">Location: @CurrentEvent.Location</small></p>
+    </div>
+</div>
+
+<hr />
+
+<h4>Edit Event Details</h4>
+<div class="mb-3">
+    <label for="eventTitle" class="form-label">Title:</label>
+    <input id="eventTitle" class="form-control" @bind="CurrentEvent.Title" />
+</div>
+<div class="mb-3">
+    <label for="eventDate" class="form-label">Date:</label>
+    <input id="eventDate" type="date" class="form-control" @bind="CurrentEvent.Date" />
+</div>
+<div class="mb-3">
+    <label for="eventLocation" class="form-label">Location:</label>
+    <input id="eventLocation" class="form-control" @bind="CurrentEvent.Location" />
+</div>
+<div class="mb-3">
+    <label for="eventDescription" class="form-label">Description:</label>
+    <textarea id="eventDescription" class="form-control" @bind="CurrentEvent.Description"></textarea>
+</div>
+
+@code {
+    private Event CurrentEvent { get; set; } = new Event();
+}
